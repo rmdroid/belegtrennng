@@ -1,2 +1,2 @@
-# belegtrennng
+# belegtrennung
 Landingpage für KI Belegtrennung
