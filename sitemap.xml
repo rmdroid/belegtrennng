@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://ki-belegtrennung.de/</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <image:image><image:loc>https://ki-belegtrennung.de/assets/img/og-image.jpg</image:loc></image:image>
+    <image:image><image:loc>https://ki-belegtrennung.de/assets/screenshots/alle-dokumente.jpg</image:loc></image:image>
+    <image:image><image:loc>https://ki-belegtrennung.de/assets/screenshots/stapel-detail.jpg</image:loc></image:image>
+    <image:image><image:loc>https://ki-belegtrennung.de/assets/story/story-4-monitor-dms.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://ki-belegtrennung.de/impressum.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://ki-belegtrennung.de/datenschutz.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+</urlset>

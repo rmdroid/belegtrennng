@@ -1,0 +1,26 @@
+# KI-Belegtrennung
+
+> KI-Belegtrennung trennt gescannte Belegstapel ohne Trennblätter und ohne Barcodes in einzelne, verschlagwortete Dokumente. Die KI erkennt Belegrenzen am Inhalt (Briefkopf, Anschriftenfeld, neue Belegnummer, Übertrag auf Folgeseiten). Ausgabe als PDF, durchsuchbares PDF/A oder mit XML-Beidatei für den DMS-Import. Wahlweise vollständig lokal (Docker auf Mac und Windows) oder in der Cloud über Mistral in der EU.
+
+Anbieter: Robert Meyer KI Beratung, Robert Meyer (KI-Berater, Fachautor und Dozent). Kontakt: rm@kostenmanager.net oder das Formular auf https://ki-belegtrennung.de/#kontakt
+
+## Funktionen
+
+- Belegtrennung ohne Trennblatt und ohne Barcode
+- Verschlagwortung: Belegart, Absender, Belegnummer, Datum, Betrag
+- Leere Rückseiten werden aussortiert
+- Trennsicherheit je Dokument, unsichere Fälle lassen sich filtern
+- Belegassistent: Fragen zu einem Dokument oder zum ganzen Stapel
+- Bedienung im Browser
+
+## Einordnung
+
+- Kein DMS, sondern die Vorstufe davor. Archivierung und Workflows bleiben im bestehenden System.
+- Keine veröffentlichte Preisliste. Preis hängt von Betriebsart (lokal oder Cloud), Belegaufkommen und Beteiligung eines Systemhauses ab.
+- Zielgruppen: Bürotechnik- und Systemhäuser, Steuerberater und Kanzleien, Arztpraxen, Verwaltungen, Handwerk und Mittelstand.
+
+## Seiten
+
+- [Startseite](https://ki-belegtrennung.de/): Ablauf, Funktionen, Screenshots, FAQ, Kontakt
+- [Impressum](https://ki-belegtrennung.de/impressum.html)
+- [Datenschutz](https://ki-belegtrennung.de/datenschutz.html)

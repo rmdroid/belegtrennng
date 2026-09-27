@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>OG-Bild KI-Belegtrennung</title>
+<style>
+  @font-face { font-family: "Plex Sans"; src: url("../assets/fonts/ibm-plex-sans-latin-400-normal.woff2") format("woff2"); font-weight: 400; }
+  @font-face { font-family: "Plex Sans"; src: url("../assets/fonts/ibm-plex-sans-latin-500-normal.woff2") format("woff2"); font-weight: 500; }
+  @font-face { font-family: "Plex Mono"; src: url("../assets/fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2"); font-weight: 400; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    font-family: "Plex Sans", sans-serif; color: #fff; position: relative;
+    background:
+      radial-gradient(55% 70% at 0% 100%, rgba(211,18,56,.32), transparent 70%),
+      repeating-linear-gradient(180deg, rgba(255,255,255,.025) 0 1px, transparent 1px 7px),
+      linear-gradient(180deg, #121213, #1a1a1c);
+  }
+  .brand { position: absolute; left: 72px; top: 64px; display: flex; align-items: center; gap: 16px; font-size: 24px; font-weight: 500; }
+  .brand img { width: 48px; height: 48px; }
+  .eyebrow { position: absolute; left: 72px; top: 200px; font-size: 16px; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.66); font-weight: 500; display: flex; align-items: center; gap: 14px; }
+  .eyebrow::before { content: ""; width: 30px; height: 3px; background: #d31238; border-radius: 2px; }
+  h1 { position: absolute; left: 68px; top: 240px; font-size: 80px; line-height: 1.02; letter-spacing: -.04em; font-weight: 400; }
+  .sub { position: absolute; left: 72px; bottom: 64px; font-size: 22px; color: rgba(255,255,255,.75); }
+  .docs { position: absolute; right: 60px; top: 150px; width: 400px; height: 360px; }
+  .doc { position: absolute; width: 110px; height: 150px; background: #faf9f6; border-radius: 6px; box-shadow: 0 10px 30px rgba(0,0,0,.4); padding: 16px 13px; }
+  .doc::before { content: ""; display: block; width: 50px; height: 8px; border-radius: 2px; background: #d31238; margin-bottom: 12px; }
+  .doc i { display: block; height: 4px; background: #d8d4cd; border-radius: 2px; margin-bottom: 8px; }
+  .doc i:nth-child(2n) { width: 65%; }
+  .doc.b { transform: translate(8px, 8px); z-index: -1; }
+  .doc.b::before { display: none; }
+  .col { position: absolute; top: 0; }
+  .tag { position: absolute; top: 185px; width: 124px; font-size: 14px; line-height: 1.35; color: rgba(255,255,255,.7); background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); border-radius: 8px; padding: 9px 11px; }
+  .tag b { display: block; color: #fff; font-weight: 500; }
+  .tag em { font-style: normal; font-size: 12px; color: #7fd49b; }
+  .sep { position: absolute; top: 0; height: 170px; border-left: 2px dashed rgba(255,255,255,.2); }
+</style>
+</head>
+<body>
+  <div class="brand"><img src="../assets/img/favicon.svg" alt="">KI-Belegtrennung</div>
+  <p class="eyebrow">Belegtrennung &amp; OCR ohne Trennblatt</p>
+  <h1>Ein Stapel.<br>Klare Dokumente.</h1>
+  <p class="sub">Keine Trennblätter. Keine Barcodes. Auf Wunsch 100&nbsp;% lokal.</p>
+  <div class="docs">
+    <div class="col" style="left:0"><div class="doc"><i></i><i></i><i></i><i></i><i></i></div><div class="doc b" style="position:absolute;top:0;left:0"><i></i><i></i></div></div>
+    <div class="sep" style="left:134px"></div>
+    <div class="col" style="left:146px"><div class="doc"><i></i><i></i><i></i><i></i></div></div>
+    <div class="sep" style="left:274px"></div>
+    <div class="col" style="left:286px"><div class="doc"><i></i><i></i><i></i><i></i><i></i></div><div class="doc b" style="position:absolute;top:0;left:0"><i></i><i></i></div></div>
+    <div class="tag" style="left:0"><b>Rechnung</b>S. 1–3<br><em>● Hoch</em></div>
+    <div class="tag" style="left:140px"><b>Angebot</b>S. 5<br><em>● Hoch</em></div>
+    <div class="tag" style="left:280px"><b>Lieferschein</b>S. 7–8<br><em>● Hoch</em></div>
+  </div>
+</body>
+</html>

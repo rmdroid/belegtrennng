@@ -1,0 +1,875 @@
+<!doctype html>
+<html lang="de" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KI-Belegtrennung: Belegstapel ohne Trennblatt trennen</title>
+  <meta name="description" content="Gescannte Belegstapel ohne Trennblatt und Barcode automatisch in verschlagwortete Einzeldokumente trennen. PDF/A und XML fürs DMS, auf Wunsch 100 % lokal.">
+  <link rel="canonical" href="https://ki-belegtrennung.de/">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Robert Meyer KI Beratung">
+  <meta name="theme-color" content="#151515">
+  <link rel="alternate" type="text/plain" href="llms.txt" title="Kurzbeschreibung für KI-Assistenten">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:site_name" content="KI-Belegtrennung">
+  <meta property="og:title" content="KI-Belegtrennung – Ein Stapel. Klare Dokumente.">
+  <meta property="og:description" content="Gescannte Belegstapel ohne Trennblatt und ohne Barcode in saubere, verschlagwortete Einzeldokumente trennen. Auf Wunsch vollständig lokal.">
+  <meta property="og:url" content="https://ki-belegtrennung.de/">
+  <meta property="og:image" content="https://ki-belegtrennung.de/assets/img/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="KI-Belegtrennung: Ein Stapel. Klare Dokumente.">
+  <meta name="twitter:image:alt" content="KI-Belegtrennung: Ein Stapel. Klare Dokumente.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="KI-Belegtrennung – Ein Stapel. Klare Dokumente.">
+  <meta name="twitter:description" content="Belegstapel ohne Trennblatt und Barcode automatisch trennen und verschlagworten. Auf Wunsch 100 % lokal.">
+  <meta name="twitter:image" content="https://ki-belegtrennung.de/assets/img/og-image.jpg">
+
+  <link rel="icon" href="favicon.ico" sizes="32x32">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <link rel="preload" href="assets/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/ibm-plex-sans-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script>
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.documentElement.classList.add("is-scrub");
+      document.documentElement.classList.add("js-reveal");
+    }
+  </script>
+  <script src="assets/js/main.js" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://ki-belegtrennung.de/#organization",
+        "name": "Robert Meyer KI Beratung",
+        "url": "https://ki-belegtrennung.de/",
+        "email": "rm@kostenmanager.net",
+        "founder": { "@id": "https://ki-belegtrennung.de/#robert" },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "c/o Online-Impressum.de #4759, Europaring 90",
+          "postalCode": "53757",
+          "addressLocality": "Sankt Augustin",
+          "addressCountry": "DE"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://ki-belegtrennung.de/#robert",
+        "name": "Robert Meyer",
+        "jobTitle": "KI-Berater, Fachautor und Dozent",
+        "image": "https://ki-belegtrennung.de/assets/img/robert.webp",
+        "worksFor": { "@id": "https://ki-belegtrennung.de/#organization" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://ki-belegtrennung.de/#webpage",
+        "url": "https://ki-belegtrennung.de/",
+        "name": "KI-Belegtrennung: Belegstapel ohne Trennblatt trennen",
+        "inLanguage": "de-DE",
+        "isPartOf": { "@id": "https://ki-belegtrennung.de/#website" },
+        "about": { "@id": "https://ki-belegtrennung.de/#software" },
+        "primaryImageOfPage": "https://ki-belegtrennung.de/assets/img/og-image.jpg",
+        "dateModified": "2026-09-27"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://ki-belegtrennung.de/#website",
+        "url": "https://ki-belegtrennung.de/",
+        "name": "KI-Belegtrennung",
+        "inLanguage": "de-DE",
+        "publisher": { "@id": "https://ki-belegtrennung.de/#organization" }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://ki-belegtrennung.de/#software",
+        "name": "KI-Belegtrennung",
+        "alternateName": "Belegerkennung",
+        "applicationCategory": "BusinessApplication",
+        "applicationSubCategory": "Dokumentenerfassung, OCR und Belegtrennung",
+        "operatingSystem": "macOS, Windows (Docker)",
+        "inLanguage": "de",
+        "description": "KI-gestützte Belegtrennung: zerlegt gescannte Stapel ohne Trennblätter und ohne Barcodes in verschlagwortete Einzeldokumente. Ausgabe als PDF, durchsuchbares PDF/A oder mit XML-Beidatei für den DMS-Import. Wahlweise vollständig lokal oder in der Cloud (Mistral, EU).",
+        "featureList": [
+          "Belegtrennung ohne Trennblatt und ohne Barcode",
+          "Automatische Verschlagwortung: Belegart, Absender, Belegnummer, Datum, Betrag",
+          "Leere Rückseiten werden automatisch aussortiert",
+          "Lokale KI oder Cloud (Mistral, EU) umschaltbar",
+          "Ausgabe als PDF, durchsuchbares PDF/A oder mit XML-Beidatei",
+          "Belegassistent für Fragen zu Dokument und Stapel"
+        ],
+        "screenshot": "https://ki-belegtrennung.de/assets/screenshots/alle-dokumente.jpg",
+        "image": "https://ki-belegtrennung.de/assets/img/og-image.jpg",
+        "url": "https://ki-belegtrennung.de/",
+        "publisher": { "@id": "https://ki-belegtrennung.de/#organization" }
+      },
+      {
+        "@type": "VideoObject",
+        "@id": "https://ki-belegtrennung.de/#erklaert",
+        "name": "Ein Stapel rein. Klare Dokumente raus.",
+        "description": "Kurzvideo: so KI-Belegtrennung den Posteingang ohne Trennblätter trennt.",
+        "thumbnailUrl": "https://ki-belegtrennung.de/assets/video/poster.jpg",
+        "contentUrl": "https://ki-belegtrennung.de/assets/video/ki-belegtrennung-erklaert.mp4",
+        "uploadDate": "2026-09-26",
+        "duration": "PT1M0.5S",
+        "inLanguage": "de",
+        "publisher": { "@id": "https://ki-belegtrennung.de/#organization" }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://ki-belegtrennung.de/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Trennt die KI jeden Stapel fehlerfrei?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Nein, das kann keine automatische Erkennung versprechen. Zu jedem erkannten Dokument zeigt KI-Belegtrennung eine Trennsicherheit an. Dokumente mit niedriger Trennsicherheit lassen sich gezielt filtern und prüfen. Die Trennsicherheit ist eine KI-Einschätzung, keine fachliche Freigabe." }
+          },
+          {
+            "@type": "Question",
+            "name": "Verlassen unsere Belege das Haus?",
+            "acceptedAnswer": { "@type": "Answer", "text": "In der lokalen Variante nicht: Erkennung, Trennung und Belegassistent laufen auf Ihrem eigenen Rechner. In der Cloud-Variante werden die Seiten zur Verarbeitung an Mistral in der EU übertragen. Sie entscheiden, welche Variante Sie nutzen." }
+          },
+          {
+            "@type": "Question",
+            "name": "Ersetzt KI-Belegtrennung unser Dokumentenmanagementsystem?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Nein. KI-Belegtrennung ist die Vorstufe vor Ihrem DMS. Es liefert fertig getrennte und beschriftete Belege als PDF, durchsuchbares PDF/A oder mit XML-Beidatei. Archivierung, Workflows und Aufbewahrung bleiben in Ihrem bestehenden System." }
+          },
+          {
+            "@type": "Question",
+            "name": "Funktioniert der Import mit unserem DMS?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Die Ausgabeformate sind bewusst allgemein gehalten. Wie Ihr DMS die XML-Beidatei oder die Dateinamen übernimmt, hängt vom System und seiner Konfiguration ab. Das prüfen wir gemeinsam mit Ihnen oder Ihrem Systemhaus an echten Belegen, bevor Sie sich festlegen." }
+          },
+          {
+            "@type": "Question",
+            "name": "Welche Technik brauchen wir für den lokalen Betrieb?",
+            "acceptedAnswer": { "@type": "Answer", "text": "KI-Belegtrennung läuft überall, wo Docker läuft, auf Mac und Windows. Wie schnell die lokale KI arbeitet, hängt von der Hardware und Ihrem Belegaufkommen ab. Das ermitteln wir im Gespräch und am besten mit einem Probestapel." }
+          },
+          {
+            "@type": "Question",
+            "name": "Ist der Einsatz damit automatisch DSGVO-konform?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Das kann keine Software pauschal zusagen. Die lokale Variante sorgt dafür, dass Belege Ihr Haus nicht verlassen. Die rechtliche Bewertung Ihres konkreten Einsatzes bleibt bei Ihnen und Ihrer Datenschutzberatung." }
+          },
+          {
+            "@type": "Question",
+            "name": "Wie zuverlässig sind die Antworten des Belegassistenten?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Der Belegassistent antwortet auf Grundlage des erkannten Textes. Wenn die Texterkennung eine Ziffer falsch liest, kann auch die Antwort falsch sein. Deshalb gilt: Wichtige Angaben wie Beträge und Fristen am Beleg prüfen." }
+          },
+          {
+            "@type": "Question",
+            "name": "Was kostet KI-Belegtrennung?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Das hängt davon ab, ob Sie lokal oder in der Cloud arbeiten, wie viele Belege anfallen und ob ein Systemhaus beteiligt ist. Eine Preisliste veröffentlichen wir derzeit nicht. Schreiben Sie uns kurz Ihre Situation, Sie erhalten eine persönliche Antwort." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+
+  <header class="site-header" data-header>
+    <div class="container header-inner">
+      <a class="brand" href="./" aria-label="KI-Belegtrennung – Startseite">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#mark"/></svg>
+        <span class="brand-text">
+          <span class="brand-name">KI-Belegtrennung</span>
+          <span class="brand-sub">Robert Meyer KI Beratung</span>
+        </span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="hauptnavigation" data-nav-toggle>
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+        <span class="visually-hidden">Menü</span>
+      </button>
+      <nav id="hauptnavigation" class="site-nav" aria-label="Hauptnavigation" data-nav>
+        <ul>
+          <li><a href="#problem">Problem</a></li>
+          <li><a href="#ablauf">Ablauf</a></li>
+          <li><a href="#funktionen">Funktionen</a></li>
+          <li><a href="#zielgruppen">Für wen</a></li>
+          <li><a href="#einblicke">Einblicke</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+        <a class="btn btn-primary btn-sm" href="#kontakt" data-rybbit-event="cta_gespraech_header">Gespräch anfragen</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="inhalt">
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow eyebrow-light">KI-Belegtrennung &amp; OCR</p>
+          <h1 id="hero-title">Ein Stapel.<br>Klare Dokumente.</h1>
+          <p class="hero-lead">Die KI erkennt, wo ein Beleg endet und der nächste beginnt – ganz ohne Trennblätter und Barcode-Aufkleber. Sie liefert saubere, verschlagwortete Einzeldokumente für Ihr DMS. Auf Wunsch komplett lokal, sodass kein Beleg das Haus verlässt.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#kontakt" data-topic="Probestapel prüfen lassen" data-rybbit-event="cta_probestapel_hero">Probestapel prüfen lassen <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="btn btn-ghost-light" href="#ablauf" data-rybbit-event="cta_ablauf_hero">So funktioniert es</a>
+          </div>
+          <ul class="hero-points">
+            <li>Keine Trennblätter</li>
+            <li>Keine Barcodes</li>
+            <li>100 % lokal möglich</li>
+          </ul>
+        </div>
+
+        <figure class="hero-visual">
+          <div class="story" data-story data-state="stack" aria-hidden="true">
+            <div class="story-stage">
+              <div class="scanline"></div>
+              <div class="sheet doc-a first" style="--i:0;--g:0;--k:0"><span class="bar"></span><span class="ln"></span><span class="ln s"></span><span class="ln"></span><span class="ln m"></span></div>
+              <div class="sheet doc-a" style="--i:1;--g:0;--k:1"><span class="ln"></span><span class="ln"></span><span class="ln s"></span><span class="ln m"></span></div>
+              <div class="sheet doc-a" style="--i:2;--g:0;--k:2"><span class="ln"></span><span class="ln s"></span><span class="ln m"></span></div>
+              <div class="sheet blank" style="--i:3;--k:0"></div>
+              <div class="sheet doc-b first" style="--i:4;--g:1;--k:0"><span class="bar"></span><span class="ln"></span><span class="ln"></span><span class="ln s"></span><span class="ln m"></span></div>
+              <div class="sheet blank" style="--i:5;--k:1"></div>
+              <div class="sheet doc-c first" style="--i:6;--g:2;--k:0"><span class="bar"></span><span class="ln s"></span><span class="ln"></span><span class="ln m"></span></div>
+              <div class="sheet doc-c" style="--i:7;--g:2;--k:1"><span class="ln"></span><span class="ln s"></span><span class="ln"></span></div>
+
+              <div class="tag" style="--g:0"><b>Rechnung</b><span>MUELLER GmbH</span><em>S. 1–3 · 1.702,94 €</em></div>
+              <div class="tag" style="--g:1"><b>Angebot</b><span>Meier &amp; Co. KG</span><em>S. 5 · 5.490,00 €</em></div>
+              <div class="tag" style="--g:2"><b>Lieferschein</b><span>Schmidt Logistik</span><em>S. 7–8</em></div>
+              <div class="bin">2 leere Seiten aussortiert</div>
+            </div>
+            <ol class="story-steps">
+              <li data-step="stack">Stapel</li>
+              <li data-step="scan">KI liest</li>
+              <li data-step="split">Getrennt</li>
+              <li data-step="tagged">Verschlagwortet</li>
+            </ol>
+          </div>
+          <figcaption>
+            <span class="visually-hidden">Animation: Ein Stapel aus acht gescannten Seiten wird von der KI gelesen und in drei Einzeldokumente getrennt – eine Rechnung, ein Angebot und einen Lieferschein. Zwei leere Seiten werden aussortiert.</span>
+            <span class="story-note">Beispiel mit erfundenen Daten</span>
+            <button class="story-toggle" type="button" data-story-toggle aria-pressed="false">Animation anhalten</button>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Problem -->
+    <section id="problem" class="section section-paper" aria-labelledby="problem-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Das Problem</p>
+          <h2 id="problem-title">Die Denkarbeit vor dem Scan<br>macht heute noch der Mensch.</h2>
+          <p class="section-lead">In fast jedem Büro läuft es gleich: Der Posteingang wird gescannt. Doch vorher sitzt jemand da und legt Trennblätter zwischen die Belege oder klebt Barcodes auf. Jeden Tag, von Hand. Die eigentliche Entscheidung – wo hört ein Beleg auf, wo fängt der nächste an – trifft nicht die Software, sondern der Mensch.</p>
+        </div>
+
+        <div class="compare">
+          <article class="compare-col compare-before" data-reveal aria-labelledby="heute-title">
+            <h3 id="heute-title"><span class="compare-label">Heute</span> Vorarbeit von Hand</h3>
+            <ol class="flow">
+              <li>Post öffnen und sortieren</li>
+              <li class="flow-pain">Trennblatt zwischen jeden Beleg legen oder Barcode aufkleben <span>Handarbeit, jeden Tag</span></li>
+              <li>Stapel scannen</li>
+              <li>DMS trennt an der angebrachten Markierung</li>
+              <li class="flow-pain">Belegart, Absender und Nummer von Hand erfassen <span>Noch einmal jedes Dokument anfassen</span></li>
+            </ol>
+          </article>
+          <article class="compare-col compare-after" data-reveal aria-labelledby="mit-title">
+            <h3 id="mit-title"><span class="compare-label">Mit KI-Belegtrennung</span> Stapel rein, Dokumente raus</h3>
+            <ol class="flow">
+              <li>Post öffnen</li>
+              <li class="flow-gain">Stapel so, wie er ist, in den Scanner <span>Keine Trennblätter, keine Aufkleber</span></li>
+              <li>KI erkennt die Belegrenzen am Inhalt</li>
+              <li class="flow-gain">Einzeldokumente kommen bereits beschriftet an <span>Belegart, Absender, Nummer, Datum, Betrag</span></li>
+              <li>Kurz sichten und ans DMS übergeben</li>
+            </ol>
+          </article>
+        </div>
+
+        <blockquote class="pullquote" data-reveal>
+          <p>Jedes Dokumentenmanagementsystem kann Stapel trennen. Aber nur an einer Markierung, die vorher jemand angebracht hat. Genau diese Vorarbeit wollten wir überflüssig machen.</p>
+          <footer>Robert Meyer, Robert Meyer KI Beratung</footer>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- Ablauf: full-viewport scroll scene -->
+    <section id="ablauf" class="scene" data-nav="dark" aria-labelledby="ablauf-title">
+      <h2 id="ablauf-title" class="visually-hidden">Ein Morgen im Posteingang: vom Stapel ins DMS.</h2>
+      <div class="scene-track" data-scene>
+        <div class="scene-stage">
+          <article class="scene-beat">
+            <picture>
+              <source type="image/webp" srcset="assets/story/story-1-posteingang.webp">
+              <img class="scene-bg" src="assets/story/story-1-posteingang.jpg" width="1672" height="941" alt="Eine Sachbearbeiterin sitzt vor einem großen Haufen geöffneter Post und Belege auf ihrem Schreibtisch." decoding="async" fetchpriority="high">
+            </picture>
+            <div class="scene-veil" aria-hidden="true"></div>
+            <div class="scene-foreground">
+              <div class="scene-copy">
+                <p class="scene-kicker">Montagmorgen, Posteingang</p>
+                <h3>Die Post ist da.</h3>
+                <p class="scene-lead">Rechnungen, Bescheide, Lieferscheine, alles durcheinander. Und jeder Beleg soll einzeln ins DMS.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="scene-beat">
+            <picture>
+              <source type="image/webp" srcset="assets/story/story-2-trennblaetter.webp">
+              <img class="scene-bg" src="assets/story/story-2-trennblaetter.jpg" width="1672" height="941" alt="Sie legt gelbe Barcode-Trennblätter zwischen die Belege eines hohen Stapels." loading="lazy" decoding="async">
+            </picture>
+            <div class="scene-veil" aria-hidden="true"></div>
+            <div class="scene-foreground">
+              <div class="scene-copy">
+                <p class="scene-kicker">Bisher</p>
+                <h3>Trennblatt. Beleg. Trennblatt.</h3>
+                <p class="scene-lead">Damit das DMS weiß, wo ein Beleg endet, kommt zwischen jeden Beleg ein Barcode-Blatt. Jeden Morgen, von Hand.</p>
+              </div>
+              <div class="scene-card scene-count">
+                <span class="scene-count-num" data-sheets>17</span>
+                <span class="scene-count-label">Trennblätter eingelegt, und der Stapel ist noch nicht durch</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="scene-beat">
+            <picture>
+              <source type="image/webp" srcset="assets/story/story-3-einzug.webp">
+              <img class="scene-bg" src="assets/story/story-3-einzug.jpg" width="1672" height="941" alt="Sie legt den ungetrennten Stapel ohne Trennblätter in den Dokumenteneinzug des Multifunktionsgeräts." loading="lazy" decoding="async">
+            </picture>
+            <div class="scene-veil" aria-hidden="true"></div>
+            <div class="scene-foreground">
+              <div class="scene-copy">
+                <p class="scene-kicker">Mit KI-Belegtrennung</p>
+                <h3>Der Stapel geht rein, wie er ist.</h3>
+                <p class="scene-lead">Keine Trennblätter, keine Aufkleber. Ein Scan, ein PDF.</p>
+              </div>
+              <div class="scene-card scene-chip">
+                <strong>Dokumenteneinzug</strong>
+                <span>Ein Stapel, null Trennblätter</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="scene-beat">
+            <picture>
+              <source type="image/webp" srcset="assets/story/story-4-monitor.webp">
+              <img class="scene-bg" src="assets/story/story-4-monitor.jpg" width="1672" height="941" alt="Sie sitzt vor dem Bildschirm, während die KI den gescannten Stapel liest." loading="lazy" decoding="async">
+            </picture>
+            <div class="scene-veil" aria-hidden="true"></div>
+            <div class="scene-foreground">
+              <div class="scene-copy">
+                <p class="scene-kicker">Die KI liest mit</p>
+                <h3>Sie erkennt, wo ein Beleg endet.</h3>
+                <p class="scene-lead">An Briefkopf, Anschrift und neuer Belegnummer, also an denselben Merkmalen wie Sie.</p>
+              </div>
+              <div class="scene-card scene-strip" data-strip style="--scan:1;--split:1;--tag:1">
+                <p class="scene-card-label">Ein PDF, acht Seiten</p>
+                <div class="strip" aria-hidden="true">
+                  <span class="strip-scan"></span>
+                  <i class="g0" style="--i:0;--g:0"></i><i class="g0" style="--i:1;--g:0"></i><i class="g0" style="--i:2;--g:0"></i>
+                  <i class="blank g1" style="--i:3;--g:1"></i>
+                  <i class="g1" style="--i:4;--g:1"></i>
+                  <i class="blank g2" style="--i:5;--g:2"></i>
+                  <i class="g2" style="--i:6;--g:2"></i><i class="g2" style="--i:7;--g:2"></i>
+                  <b style="--g:0;--c:1.5">Rechnung</b><b style="--g:1;--c:4">Angebot</b><b style="--g:2;--c:6.5">Lieferschein</b>
+                </div>
+                <p class="scene-card-note">Zwei leere Seiten aussortiert · erfundene Daten</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="scene-beat">
+            <picture>
+              <source type="image/webp" srcset="assets/story/story-4-monitor-dms.webp">
+              <img class="scene-bg" src="assets/story/story-4-monitor-dms.jpg" width="1672" height="941" alt="Auf ihrem Bildschirm: die Übersicht „Alle Dokumente“ mit drei erkannten Belegen." loading="lazy" decoding="async">
+            </picture>
+            <div class="scene-veil" aria-hidden="true"></div>
+            <div class="scene-foreground">
+              <div class="scene-copy">
+                <p class="scene-kicker">Ergebnis</p>
+                <h3>Getrennt. Beschriftet. Prüfbar.</h3>
+                <p class="scene-lead">Jeder Beleg mit Absender, Nummer, Datum, Betrag und Trennsicherheit. Unsichere Fälle sieht sie sofort.</p>
+              </div>
+              <div class="scene-card scene-docs">
+                <p class="scene-card-label">Einzeldokumente</p>
+                <ul>
+                  <li><b>Rechnung</b><span>MUELLER GmbH · S. 1–3</span></li>
+                  <li><b>Angebot</b><span>Meier &amp; Co. KG · S. 5</span></li>
+                  <li><b>Lieferschein</b><span>Schmidt Logistik · S. 7–8</span></li>
+                </ul>
+                <p class="scene-card-note">Beispiel mit erfundenen Daten</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="scene-beat">
+            <picture>
+              <source type="image/webp" srcset="assets/story/story-5-ablage.webp">
+              <img class="scene-bg" src="assets/story/story-5-ablage.jpg" width="1672" height="941" alt="Der Schreibtisch ist aufgeräumt, das Ablagefach leer. Sie lehnt sich entspannt zurück, der Kaffee dampft noch." loading="lazy" decoding="async">
+            </picture>
+            <div class="scene-veil" aria-hidden="true"></div>
+            <div class="scene-foreground">
+              <div class="scene-copy">
+                <p class="scene-kicker">Ablagefertig</p>
+                <h3>Ab ins DMS. Der Kaffee ist noch warm.</h3>
+                <p class="scene-lead">Als PDF, durchsuchbares PDF/A oder mit XML-Beidatei. Ihr DMS bleibt, wie es ist.</p>
+              </div>
+              <div class="scene-card scene-chip">
+                <strong>Übergabe ans DMS</strong>
+                <span>PDF · PDF/A · XML-Beidatei</span>
+              </div>
+            </div>
+          </article>
+
+          <div class="scene-meter" aria-hidden="true"><span data-meter></span></div>
+          <ol class="scene-nav" aria-label="Stationen im Ablauf">
+            <li><button type="button" data-goto="0" aria-current="step">Post</button></li>
+            <li><button type="button" data-goto="1">Bisher</button></li>
+            <li><button type="button" data-goto="2">Einzug</button></li>
+            <li><button type="button" data-goto="3">KI</button></li>
+            <li><button type="button" data-goto="4">Ergebnis</button></li>
+            <li><button type="button" data-goto="5">DMS</button></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+    <section class="signals-band" aria-labelledby="signale-title">
+      <div class="container">
+        <div class="signals" data-signals>
+          <div class="signals-copy" data-reveal>
+            <h2 id="signale-title">Woran die KI eine Belegrenze erkennt</h2>
+            <p>An denselben Merkmalen, an denen auch Sie es sehen würden. Die KI bewertet jede Seite im Zusammenhang mit der vorherigen und der nächsten.</p>
+            <ol class="signal-list">
+              <li data-sig="1"><span class="marker">1</span><div><strong>Briefkopf</strong> Ein neuer Absender oben auf der Seite ist ein starkes Zeichen für einen neuen Beleg.</div></li>
+              <li data-sig="2"><span class="marker">2</span><div><strong>Anschriftenfeld</strong> Ein Empfängerblock im Sichtfenster gehört meist auf die erste Seite.</div></li>
+              <li data-sig="3"><span class="marker">3</span><div><strong>Neue Belegnummer</strong> Wechselt die Rechnungs- oder Lieferscheinnummer, beginnt ein neues Dokument.</div></li>
+              <li data-sig="4"><span class="marker">4</span><div><strong>Übertrag auf der Folgeseite</strong> „Übertrag“ oder „Seite 2 von 3“ zeigen: Diese Seite gehört noch dazu.</div></li>
+            </ol>
+          </div>
+          <div class="signals-art" data-reveal aria-hidden="true">
+            <div class="paper">
+              <div class="paper-head" data-sig="1"><span class="p-logo"></span><span class="p-lines"><i></i><i class="s"></i></span><span class="marker">1</span></div>
+              <div class="paper-address" data-sig="2"><i></i><i></i><i class="s"></i><span class="marker">2</span></div>
+              <div class="paper-meta" data-sig="3"><span class="mono">Rechnungsnummer: RE-2026-0815</span><span class="marker">3</span></div>
+              <div class="paper-table"><i></i><i></i><i></i><i class="s"></i></div>
+              <div class="paper-foot" data-sig="4"><span class="mono">Übertrag auf nächste Seite · Seite 1 von 3</span><span class="marker">4</span></div>
+            </div>
+            <div class="paper paper-behind"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Funktionen -->
+    <section id="funktionen" class="section section-paper" aria-labelledby="funktionen-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Funktionen</p>
+          <h2 id="funktionen-title">Nicht nur getrennt.<br>Fertig für die Ablage.</h2>
+          <p class="section-lead">Beim Lesen fallen die wichtigsten Angaben gleich mit ab. Das spart oft mehr Zeit als das Trennblattlegen selbst.</p>
+        </div>
+
+        <article class="statement" aria-labelledby="f-lokal">
+          <div>
+            <p class="feature-kicker">Datenschutz als echte Option</p>
+            <h3 id="f-lokal">Lokal oder Cloud.<br>Per Knopfdruck.</h3>
+            <p>In der lokalen Variante arbeitet die KI vollständig auf Ihrem eigenen Rechner: Kein Beleg verlässt das Haus. Für Steuerberater, Kanzleien, Praxen und Behörden ist genau das oft der entscheidende Punkt. Wer keine eigene KI-Hardware betreiben möchte, nutzt die Cloud-Verarbeitung über Mistral in der EU.</p>
+          </div>
+          <div class="mode" aria-hidden="true">
+            <div class="mode-switch"><span class="is-on">Lokale KI</span><span>Cloud · EU</span></div>
+            <dl class="mode-list">
+              <div><dt>Lokal</dt><dd>Verarbeitung auf Ihrem Rechner. Belege bleiben im Haus.</dd></div>
+              <div><dt>Cloud</dt><dd>Verarbeitung über Mistral in der EU. Keine eigene KI-Hardware nötig.</dd></div>
+            </dl>
+          </div>
+        </article>
+
+        <div class="feature-list">
+          <article aria-labelledby="f-tags">
+            <div>
+              <p class="feature-kicker">Verschlagwortung</p>
+              <h3 id="f-tags">Belege kommen beschriftet an.</h3>
+              <p>Belegart, Absender, Belegnummer, Datum und Betrag werden automatisch erkannt.</p>
+              <p class="visually-hidden">Beispiel erkannter Angaben mit erfundenen Daten:</p>
+            </div>
+            <dl class="fields">
+              <div><dt>Belegart</dt><dd>Rechnung</dd></div>
+              <div><dt>Absender</dt><dd>MUELLER GmbH</dd></div>
+              <div><dt>Nummer</dt><dd class="mono">RE-2026-0815</dd></div>
+              <div><dt>Datum</dt><dd class="mono">14.03.2026</dd></div>
+              <div><dt>Betrag</dt><dd class="mono">1.702,94 €</dd></div>
+            </dl>
+          </article>
+
+          <article aria-labelledby="f-output">
+            <div>
+              <p class="feature-kicker">Ausgabe fürs DMS</p>
+              <h3 id="f-output">PDF, PDF/A oder mit XML.</h3>
+              <p>Wahlweise als schlichtes PDF, als durchsuchbares PDF/A mit deutscher Textebene oder mit XML-Beidatei für den Import in Ihr DMS.</p>
+            </div>
+            <ul class="chips">
+              <li>PDF</li>
+              <li>PDF/A · durchsuchbar</li>
+              <li>PDF + XML-Beidatei</li>
+            </ul>
+          </article>
+
+          <article aria-labelledby="f-blank">
+            <div>
+              <p class="feature-kicker">Leerseiten</p>
+              <h3 id="f-blank">Leere Rückseiten fliegen raus.</h3>
+              <p>Beim beidseitigen Scannen entstehen leere Seiten. Die KI erkennt sie und sortiert sie automatisch aus – sie landen nicht im Archiv.</p>
+              <p class="visually-hidden">Beispiel: In einem Stapel aus acht Seiten sind die Seiten 4 und 6 leer und werden aussortiert.</p>
+            </div>
+            <ol class="pages" aria-hidden="true">
+              <li>1</li><li>2</li><li>3</li><li class="pg-blank">4</li><li>5</li><li class="pg-blank">6</li><li>7</li><li>8</li>
+            </ol>
+          </article>
+
+          <article aria-labelledby="f-confidence">
+            <div>
+              <p class="feature-kicker">Trennsicherheit</p>
+              <h3 id="f-confidence">Sie sehen, wo die KI unsicher ist.</h3>
+              <p>Zu jedem Dokument zeigt die Anwendung eine Trennsicherheit. Unsichere Fälle lassen sich gezielt filtern und prüfen. Eine KI-Einschätzung, keine fachliche Freigabe.</p>
+            </div>
+            <ul class="levels" aria-hidden="true"><li class="lv-high">Hoch</li><li class="lv-low">Niedrig</li></ul>
+          </article>
+
+          <article aria-labelledby="f-assist">
+            <div>
+              <p class="feature-kicker">Belegassistent</p>
+              <h3 id="f-assist">Fragen statt suchen.</h3>
+              <p>Stellen Sie Fragen direkt zu einem Dokument oder zum ganzen Stapel: Welcher Betrag? Welche Frist? Von wem? Der Belegassistent läuft lokal oder in der Cloud – je nachdem, wie Sie arbeiten. Er antwortet auf Basis des erkannten Textes, deshalb gilt: Wichtiges am Beleg prüfen.</p>
+            </div>
+            <div class="chat" aria-hidden="true">
+              <p class="chat-q">Welcher Beleg hat den höchsten Betrag?</p>
+              <p class="chat-a">Das Angebot von Meier &amp; Co. KG über <span class="mono">5.490,00 €</span> (Originalseite 5).</p>
+              <p class="chat-q">Gehören die Belege inhaltlich zusammen?</p>
+              <p class="chat-note">Beispiel mit erfundenen Daten</p>
+            </div>
+          </article>
+
+          <article class="feature-solo" aria-labelledby="f-docker">
+            <div>
+              <p class="feature-kicker">Betrieb</p>
+              <h3 id="f-docker">Läuft, wo Docker läuft.</h3>
+              <p>Auf Mac und Windows. Bedient wird die Anwendung bequem im Browser.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- DMS -->
+    <section class="section section-dark" aria-labelledby="dms-title">
+      <div class="container dms">
+        <div class="dms-copy">
+          <p class="eyebrow eyebrow-light">Positionierung</p>
+          <h2 id="dms-title">Kein neues DMS.<br>Die Vorstufe davor.</h2>
+          <p>KI-Belegtrennung nimmt Ihnen genau den Handgriff ab, den bisher keine Software übernommen hat. Ihr bestehendes System bleibt, wie es ist – es bekommt nur bessere, fertig sortierte Belege.</p>
+        </div>
+        <ol class="pipeline">
+          <li><span class="pipe-kicker">Eingang</span><strong>Scanner oder Multifunktionsgerät</strong><span>Ein PDF, ungetrennt</span></li>
+          <li class="pipe-core"><span class="pipe-kicker">Vorstufe</span><strong>KI-Belegtrennung</strong><span>Trennen, lesen, verschlagworten</span></li>
+          <li><span class="pipe-kicker">Ablage</span><strong>Ihr DMS</strong><span>Unverändert, bessere Belege</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Zielgruppen -->
+    <section id="zielgruppen" class="section" aria-labelledby="zielgruppen-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Für wen</p>
+          <h2 id="zielgruppen-title">Für alle, bei denen<br>jeden Tag Belege ankommen.</h2>
+        </div>
+        <ol class="roster">
+          <li>
+            <div>
+              <h3>Bürotechnik- und Systemhäuser</h3>
+              <p>Eine Zusatzleistung im MPS- und DMS-Geschäft, die beim Kunden sofort spürbar ist: weniger Vorarbeit am Scanner, ohne das vorhandene DMS anzutasten.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Steuerberater und Kanzleien</h3>
+              <p>Belegstapel von Mandanten trennen und beschriften, ohne dass die Unterlagen die Kanzlei verlassen – mit der lokalen Variante.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Arztpraxen</h3>
+              <p>Post mit sensiblen Inhalten bleibt in der Praxis. Die lokale KI arbeitet auf dem eigenen Rechner.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Verwaltungen</h3>
+              <p>Posteingang digitalisieren, ohne Trennblatt-Routine und mit voller Kontrolle darüber, wo die Daten verarbeitet werden.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Handwerk und Mittelstand</h3>
+              <p>Rechnungen, Lieferscheine und Angebote landen täglich auf dem Tisch. Ein Stapel, einmal scannen – den Rest sortiert die KI.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Einblicke -->
+    <section id="einblicke" class="section section-paper" aria-labelledby="einblicke-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Einblicke</p>
+          <h2 id="einblicke-title">So sieht der<br>Arbeitsplatz aus.</h2>
+          <p class="section-lead">Screenshots der Anwendung mit einem Teststapel aus acht Seiten, zwei davon leer. Die Firmen in den Belegen sind erfunden.</p>
+        </div>
+
+        <ul class="gallery">
+          <li class="shot shot-lead" data-reveal>
+            <button type="button" class="shot-btn" data-lightbox="assets/screenshots/alle-dokumente.webp" data-caption="Alle Dokumente: erkannte Belege mit Absender, Belegart, Datum, Betrag, Seiten und Trennsicherheit.">
+              <picture>
+                <source type="image/webp" srcset="assets/screenshots/alle-dokumente-800.webp 800w, assets/screenshots/alle-dokumente.webp 1600w" sizes="(min-width: 960px) 60vw, 100vw">
+                <img src="assets/screenshots/alle-dokumente.jpg" width="1600" height="1042" loading="lazy" decoding="async" alt="Übersicht „Alle Dokumente“: drei aus einem Stapel erkannte Belege – Lieferschein von Schmidt Logistik GmbH, Rechnung von MUELLER GmbH über 1.702,94 Euro und Angebot von Meier &amp; Co. KG über 5.490,00 Euro, jeweils mit Trennsicherheit „Hoch“.">
+              </picture>
+              <span class="visually-hidden">Vergrößern</span>
+            </button>
+            <p class="shot-caption"><strong>Alle Dokumente</strong> Erkannte Belege mit Datum, Betrag, Originalseiten und Trennsicherheit.</p>
+          </li>
+          <li class="shot" data-reveal>
+            <button type="button" class="shot-btn" data-lightbox="assets/screenshots/stapel-detail.webp" data-caption="Stapel-Detail: erkannte Aufteilung nach Originalseiten, Vorschau und erkannte Angaben.">
+              <picture>
+                <source type="image/webp" srcset="assets/screenshots/stapel-detail-800.webp 800w, assets/screenshots/stapel-detail.webp 1600w" sizes="(min-width: 960px) 30vw, 100vw">
+                <img src="assets/screenshots/stapel-detail.jpg" width="1600" height="1042" loading="lazy" decoding="async" alt="Stapel-Detail: Die erkannte Aufteilung zeigt Rechnung auf Originalseiten 1 bis 3, Angebot auf Seite 5 und Lieferschein auf Seiten 7 bis 8, daneben die PDF-Vorschau und die erkannten Angaben.">
+              </picture>
+              <span class="visually-hidden">Vergrößern</span>
+            </button>
+            <p class="shot-caption"><strong>Stapel-Detail</strong> Erkannte Aufteilung, Vorschau, Angaben und OCR-Text.</p>
+          </li>
+          <li class="shot" data-reveal>
+            <button type="button" class="shot-btn" data-lightbox="assets/screenshots/belegassistent.webp" data-caption="Belegassistent: Fragen zu diesem Dokument oder zum ganzen Stapel.">
+              <picture>
+                <source type="image/webp" srcset="assets/screenshots/belegassistent-800.webp 800w, assets/screenshots/belegassistent.webp 1600w" sizes="(min-width: 960px) 30vw, 100vw">
+                <img src="assets/screenshots/belegassistent.jpg" width="1600" height="1042" loading="lazy" decoding="async" alt="Belegassistent: Seitenleiste mit Vorschlägen wie „Fasse die Belege dieses Stapels zusammen“ und „Welcher Beleg hat den höchsten Betrag?“, wahlweise für dieses Dokument oder den ganzen Stapel.">
+              </picture>
+              <span class="visually-hidden">Vergrößern</span>
+            </button>
+            <p class="shot-caption"><strong>Belegassistent</strong> Fragen zum Dokument oder zum ganzen Stapel.</p>
+          </li>
+          <li class="shot" data-reveal>
+            <button type="button" class="shot-btn" data-lightbox="assets/screenshots/login.webp" data-caption="Anmeldung: Ihr Dokumentenarbeitsplatz im Browser.">
+              <picture>
+                <source type="image/webp" srcset="assets/screenshots/login-800.webp 800w, assets/screenshots/login.webp 1600w" sizes="(min-width: 960px) 30vw, 100vw">
+                <img src="assets/screenshots/login.jpg" width="1600" height="1042" loading="lazy" decoding="async" alt="Anmeldeseite der Belegerkennung mit dem Leitsatz „Ein Stapel. Klare Dokumente.“ und den Schritten Hochladen, KI trennt und liest, Ergebnisse sichten.">
+              </picture>
+              <span class="visually-hidden">Vergrößern</span>
+            </button>
+            <p class="shot-caption"><strong>Anmeldung</strong> Ihr Dokumentenarbeitsplatz, bequem im Browser.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Kurz erklärt -->
+    <section id="erklaert" class="section section-dark" aria-labelledby="erklaert-title">
+      <div class="container explainer">
+        <div class="explainer-copy" data-reveal>
+          <p class="eyebrow eyebrow-light">Kurz erklärt</p>
+          <h2 id="erklaert-title">Ein Stapel rein.<br>Klare Dokumente raus.</h2>
+          <p>Eine Minute, mit Ton. Ein gescannter Stapel geht hinein, einzelne Belege kommen heraus – ohne Trennblatt und ohne Barcode.</p>
+        </div>
+        <figure class="phone" data-reveal>
+          <div class="phone-shell">
+            <div class="phone-screen">
+              <video controls playsinline preload="none" poster="assets/video/poster.jpg" width="720" height="1224" aria-label="Kurzvideo: so KI-Belegtrennung den Posteingang ohne Trennblätter trennt">
+                <source src="assets/video/ki-belegtrennung-erklaert.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+          <figcaption>Kurzvideo: so KI-Belegtrennung den Posteingang ohne Trennblätter trennt.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section" aria-labelledby="faq-title">
+      <div class="container faq-grid">
+        <div class="section-head">
+          <p class="eyebrow">Häufige Fragen</p>
+          <h2 id="faq-title">Was die KI kann&nbsp;– und was nicht.</h2>
+          <p class="section-lead">Wir versprechen nichts, was eine Software nicht halten kann. Wenn Ihre Frage fehlt, schreiben Sie uns.</p>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>Trennt die KI jeden Stapel fehlerfrei?</summary>
+            <p>Nein, das kann keine automatische Erkennung versprechen. Zu jedem erkannten Dokument zeigt KI-Belegtrennung eine Trennsicherheit an. Dokumente mit niedriger Trennsicherheit lassen sich gezielt filtern und prüfen. Die Trennsicherheit ist eine KI-Einschätzung, keine fachliche Freigabe.</p>
+          </details>
+          <details>
+            <summary>Verlassen unsere Belege das Haus?</summary>
+            <p>In der lokalen Variante nicht: Erkennung, Trennung und Belegassistent laufen auf Ihrem eigenen Rechner. In der Cloud-Variante werden die Seiten zur Verarbeitung an Mistral in der EU übertragen. Sie entscheiden, welche Variante Sie nutzen.</p>
+          </details>
+          <details>
+            <summary>Ersetzt KI-Belegtrennung unser Dokumentenmanagementsystem?</summary>
+            <p>Nein. KI-Belegtrennung ist die Vorstufe vor Ihrem DMS. Es liefert fertig getrennte und beschriftete Belege als PDF, durchsuchbares PDF/A oder mit XML-Beidatei. Archivierung, Workflows und Aufbewahrung bleiben in Ihrem bestehenden System.</p>
+          </details>
+          <details>
+            <summary>Funktioniert der Import mit unserem DMS?</summary>
+            <p>Die Ausgabeformate sind bewusst allgemein gehalten. Wie Ihr DMS die XML-Beidatei oder die Dateinamen übernimmt, hängt vom System und seiner Konfiguration ab. Das prüfen wir gemeinsam mit Ihnen oder Ihrem Systemhaus an echten Belegen, bevor Sie sich festlegen.</p>
+          </details>
+          <details>
+            <summary>Welche Technik brauchen wir für den lokalen Betrieb?</summary>
+            <p>KI-Belegtrennung läuft überall, wo Docker läuft, auf Mac und Windows. Wie schnell die lokale KI arbeitet, hängt von der Hardware und Ihrem Belegaufkommen ab. Das ermitteln wir im Gespräch und am besten mit einem Probestapel.</p>
+          </details>
+          <details>
+            <summary>Ist der Einsatz damit automatisch DSGVO-konform?</summary>
+            <p>Das kann keine Software pauschal zusagen. Die lokale Variante sorgt dafür, dass Belege Ihr Haus nicht verlassen. Die rechtliche Bewertung Ihres konkreten Einsatzes bleibt bei Ihnen und Ihrer Datenschutzberatung.</p>
+          </details>
+          <details>
+            <summary>Wie zuverlässig sind die Antworten des Belegassistenten?</summary>
+            <p>Der Belegassistent antwortet auf Grundlage des erkannten Textes. Wenn die Texterkennung eine Ziffer falsch liest, kann auch die Antwort falsch sein. Deshalb gilt: Wichtige Angaben wie Beträge und Fristen am Beleg prüfen.</p>
+          </details>
+          <details>
+            <summary>Was kostet KI-Belegtrennung?</summary>
+            <p>Das hängt davon ab, ob Sie lokal oder in der Cloud arbeiten, wie viele Belege anfallen und ob ein Systemhaus beteiligt ist. Eine Preisliste veröffentlichen wir derzeit nicht. Schreiben Sie uns kurz Ihre Situation, Sie erhalten eine persönliche Antwort.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Person -->
+    <section class="section section-paper person" aria-labelledby="person-title">
+      <div class="container person-grid">
+        <img class="person-photo" src="assets/img/robert.webp" width="820" height="1230" alt="Robert Meyer bei einem Vortrag" loading="lazy" decoding="async">
+        <div data-reveal>
+          <p class="eyebrow">Wer dahinter steht</p>
+          <h2 id="person-title">Robert Meyer</h2>
+          <p class="person-role">KI-Berater, Fachautor und Dozent</p>
+          <p class="person-text">Ich entwickle Werkzeuge, die KI in den Büroalltag bringen, ohne dass sensible Daten das Haus verlassen müssen. Neben KI-Belegtrennung gehört dazu der <a href="https://anonymisierer-tools.de/" target="_blank" rel="noopener">KI-Anonymisierer</a>. Ihre Anfrage landet direkt bei mir, nicht in einem Callcenter.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Kontakt -->
+    <section id="kontakt" class="section contact" aria-labelledby="kontakt-title">
+      <div class="container contact-grid">
+        <div data-reveal>
+          <p class="eyebrow eyebrow-light">Kontakt</p>
+          <h2 id="kontakt-title">Zeigen Sie uns Ihren Stapel.</h2>
+          <p class="contact-lead">Kanzlei, Praxis, Verwaltung, Systemhaus oder Mittelstand: Schildern Sie kurz Ihren Posteingang – ungefähres Belegaufkommen, vorhandenes DMS und ob Sie lokal oder in der Cloud arbeiten möchten. Sie erhalten eine persönliche Antwort von Robert Meyer.</p>
+          <p class="contact-mail">oder direkt an <a href="mailto:rm@kostenmanager.net" data-rybbit-event="kontakt_mail">rm@kostenmanager.net</a></p>
+        </div>
+        <form class="contact-form" id="contactForm" data-reveal>
+          <label>Name
+            <input name="name" type="text" autocomplete="name" required>
+          </label>
+          <label>E-Mail
+            <input name="email" type="email" autocomplete="email" required>
+          </label>
+          <label>Anliegen
+            <select name="topic" id="topic">
+              <option>Allgemeine Frage</option>
+              <option>Probestapel prüfen lassen</option>
+              <option>Lokaler Betrieb</option>
+              <option>Cloud-Betrieb (Mistral, EU)</option>
+              <option>Angebot für ein Systemhaus</option>
+            </select>
+          </label>
+          <label>Nachricht
+            <textarea name="message" placeholder="Zum Beispiel: Steuerkanzlei, täglicher Belegstapel, vorhandenes DMS, lieber lokal."></textarea>
+          </label>
+          <div class="trap" aria-hidden="true"><label>Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+          <p class="form-note">Ihre Angaben werden zur Bearbeitung Ihrer Anfrage an Robert Meyer übermittelt. <a href="datenschutz.html" data-frame="Datenschutz">Datenschutz</a></p>
+          <button class="btn btn-primary" type="submit" id="sendBtn">Anfrage senden</button>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="./">
+          <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#mark"/></svg>
+          <span class="brand-name">KI-Belegtrennung</span>
+        </a>
+        <p>Die intelligente Vorstufe vor Ihrem DMS. Ein Produkt von Robert Meyer KI Beratung.</p>
+      </div>
+      <nav aria-label="Rechtliches">
+        <ul class="footer-links">
+          <li><a href="#kontakt">Kontakt</a></li>
+          <li><a href="impressum.html" data-frame="Impressum">Impressum</a></li>
+          <li><a href="datenschutz.html" data-frame="Datenschutz">Datenschutz</a></li>
+          <li><button class="footer-btn" type="button" data-a11y-open>Barrierefreiheit</button></li>
+          <li><button class="footer-btn" type="button" data-consent-open>Datenschutzeinstellungen</button></li>
+        </ul>
+      </nav>
+      <p class="footer-copy">© 2026 Robert Meyer KI Beratung</p>
+    </div>
+  </footer>
+
+  <dialog class="frame" id="frame" aria-labelledby="frameTitle">
+    <div class="frame-head">
+      <strong id="frameTitle"></strong>
+      <a id="frameOpen" href="#" target="_blank" rel="noopener">In neuem Tab öffnen ↗</a>
+      <button class="frame-close" type="button" id="frameClose" autofocus aria-label="Schließen">×</button>
+    </div>
+    <iframe id="frameView" title="Detailansicht" src="about:blank"></iframe>
+  </dialog>
+
+  <div class="cookie-note" role="region" aria-labelledby="consentTitle" data-consent hidden>
+    <p class="cookie-title" id="consentTitle">Ihre Privatsphäre</p>
+    <p>Wenn Sie zustimmen, messen wir mit Rybbit anonym, welche Seiten aufgerufen werden, ohne Profile und ohne Weitergabe an Dritte. Damit wir Sie nicht bei jedem Besuch erneut fragen, speichern wir Ihre Auswahl in einem Cookie. <a href="datenschutz.html" data-frame="Datenschutz">Datenschutz</a></p>
+    <div class="cookie-actions">
+      <button class="btn btn-primary btn-sm" type="button" data-consent-choice="granted">Statistik erlauben</button>
+      <button class="btn btn-outline btn-sm" type="button" data-consent-choice="denied">Nur notwendig</button>
+    </div>
+  </div>
+
+  <nav class="dock" aria-label="Schnellzugriff" data-dock>
+    <a href="#ablauf" data-rybbit-event="dock_ablauf"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14M5 9h14M5 14h9M5 19h6"/></svg>Ablauf</a>
+    <a class="dock-main" href="#kontakt" data-topic="Probestapel prüfen lassen" data-rybbit-event="dock_probestapel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/></svg>Probestapel</a>
+    <a href="#kontakt" data-call data-rybbit-event="dock_anrufen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>Anrufen</a>
+  </nav>
+
+  <dialog class="a11y" id="a11y" aria-labelledby="a11yTitle">
+    <form method="dialog">
+      <h2 id="a11yTitle">Barrierefreiheit</h2>
+      <p class="a11y-intro">Passen Sie die Darstellung für diesen Besuch an.</p>
+      <label class="a11y-opt">Hoher Kontrast<small>Kräftigere Schrift- und Linienfarben</small><input type="checkbox" data-a11y="hc"></label>
+      <label class="a11y-opt">Animationen reduzieren<small>Statische Darstellung ohne Scroll-Effekte</small><input type="checkbox" data-a11y="motion"></label>
+      <p class="a11y-hint">Schrift vergrößern: Strg + Plus (Mac: ⌘ + Plus). Die Seite ist vollständig mit der Tastatur bedienbar.</p>
+      <div class="a11y-row"><button class="btn btn-primary btn-sm" value="close">Fertig</button></div>
+    </form>
+  </dialog>
+
+  <dialog class="lightbox" data-lightbox-dialog aria-labelledby="lightbox-caption">
+    <form method="dialog"><button class="lightbox-close" type="submit" aria-label="Schließen">×</button></form>
+    <div data-lightbox-media></div>
+    <p id="lightbox-caption" data-lightbox-caption></p>
+  </dialog>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="mark" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="7" fill="#1c1d20"/>
+      <g fill="#3b3f46">
+        <circle cx="7" cy="7" r="1.9"/><circle cx="13" cy="7" r="1.9"/><circle cx="25" cy="7" r="1.9"/>
+        <circle cx="7" cy="13" r="1.9"/><circle cx="19" cy="13" r="1.9"/><circle cx="25" cy="13" r="1.9"/>
+        <circle cx="13" cy="19" r="1.9"/><circle cx="19" cy="19" r="1.9"/>
+        <circle cx="7" cy="25" r="1.9"/><circle cx="19" cy="25" r="1.9"/>
+      </g>
+      <g fill="#e11d48">
+        <circle cx="19" cy="7" r="1.9"/><circle cx="13" cy="13" r="1.9"/><circle cx="7" cy="19" r="1.9"/><circle cx="25" cy="19" r="1.9"/><circle cx="13" cy="25" r="1.9"/><circle cx="25" cy="25" r="1.9"/>
+      </g>
+    </symbol>
+    <symbol id="i-arrow" viewBox="0 0 20 20"><path d="M4 10h11m-4.5-4.5L15 10l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </svg>
+</body>
+</html>
