@@ -277,7 +277,8 @@
   var scene = document.querySelector("[data-scene]");
   if (scene) {
     var beats = Array.prototype.slice.call(scene.querySelectorAll(".scene-beat"));
-    var bgs = beats.map(function (beat) { return beat.querySelector(".scene-bg"); });
+    var depths = beats.map(function (beat) { return beat.querySelector(".scene-depth"); });
+    var bgs = beats.map(function (beat, i) { return depths[i] || beat.querySelector(".scene-bg"); });
     var veils = beats.map(function (beat) { return beat.querySelector(".scene-veil"); });
     var copies = beats.map(function (beat) { return beat.querySelector(".scene-copy"); });
     var cards = beats.map(function (beat) { return beat.querySelector(".scene-card"); });
@@ -313,6 +314,12 @@
         var bg = Math.min(bgIn, bgOut);
         if (bgs[i]) bgs[i].style.opacity = bg.toFixed(3);
         if (veils[i]) veils[i].style.opacity = bg.toFixed(3);
+        if (depths[i] && bg > 0) {
+          var from = Number(depths[i].getAttribute("data-from")) || 0;
+          var to = Number(depths[i].getAttribute("data-to")) || from + 1;
+          depths[i].style.setProperty("--p", clamp01((x - from) / (to - from)).toFixed(4));
+          depths[i].style.setProperty("--scan", clamp01((x - i - 0.18) / 0.55).toFixed(4));
+        }
         var copyIn = i === 0 ? 1 : clamp01((x - (i - 0.12)) / 0.28);
         var copyOut = i === last ? 1 : clamp01((i + 1.12 - x) / 0.28);
         var copyOp = Math.min(copyIn, copyOut);
@@ -347,6 +354,11 @@
         if (!el) return;
         el.style.opacity = "";
         el.style.transform = "";
+      });
+      depths.forEach(function (el) {
+        if (!el) return;
+        el.style.removeProperty("--p");
+        el.style.removeProperty("--scan");
       });
       navButtons.forEach(function (btn, i) {
         if (i === 0) btn.setAttribute("aria-current", "step");

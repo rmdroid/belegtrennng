@@ -687,12 +687,45 @@ button { font: inherit; color: inherit; }
   object-fit: cover;
   object-position: var(--focus, 50% 40%);
 }
-.scene-beat:nth-child(1) .scene-bg { --focus: 56% 40%; }
-.scene-beat:nth-child(2) .scene-bg { --focus: 62% 40%; }
-.scene-beat:nth-child(3) .scene-bg { --focus: 52% 40%; }
-.scene-beat:nth-child(4) .scene-bg,
-.scene-beat:nth-child(5) .scene-bg { --focus: 22% 42%; }
-.scene-beat:nth-child(6) .scene-bg { --focus: 52% 40%; }
+.scene-beat:nth-child(1) :is(.scene-bg, .scene-depth) { --focus: 56% 40%; }
+.scene-beat:nth-child(2) :is(.scene-bg, .scene-depth) { --focus: 62% 40%; }
+.scene-beat:nth-child(3) :is(.scene-bg, .scene-depth) { --focus: 52% 40%; }
+.scene-beat:nth-child(4) :is(.scene-bg, .scene-depth),
+.scene-beat:nth-child(5) :is(.scene-bg, .scene-depth) { --focus: 22% 42%; }
+.scene-beat:nth-child(6) :is(.scene-bg, .scene-depth) { --focus: 52% 40%; }
+.scene-depth { display: none; }
+html.is-scrub:not(.no-js) .scene-depth {
+  display: block;
+  position: absolute; inset: 0; z-index: 0;
+  overflow: hidden; opacity: 0;
+  --p: .5; --scan: 0;
+  transform: scale(calc(var(--z0, 1.03) + var(--p) * var(--zd, .05)));
+}
+html.is-scrub:not(.no-js) .scene-beat:has(.scene-depth) picture { visibility: hidden; }
+.scene-depth img, .scene-depth-front {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; max-width: none;
+  object-fit: cover;
+  object-position: var(--focus);
+  will-change: transform;
+}
+.scene-depth-back {
+  transform: translate3d(calc((.5 - var(--p)) * var(--bx, 14px)), 0, 0) scale(calc(var(--bs0, 1) - var(--p) * var(--bsd, 0)));
+}
+.scene-depth-front {
+  transform-origin: var(--mo, 50% 100%);
+  transform: translate3d(calc((.5 - var(--p)) * var(--mx, 40px)), 0, 0) scale(calc(1 + var(--p) * var(--ms, 0)));
+}
+.scene-scan {
+  position: absolute; inset: 0;
+  -webkit-mask: url("../story/story-3-einzug-stapel.webp") var(--focus) / cover no-repeat;
+  mask: url("../story/story-3-einzug-stapel.webp") var(--focus) / cover no-repeat;
+  background: linear-gradient(100deg, transparent 0 44%, rgba(255, 240, 236, .55) 48.6%, rgba(255, 92, 120, .95) 50%, rgba(255, 240, 236, .55) 51.4%, transparent 56% 100%);
+  background-size: 260% 100%;
+  background-position: calc(100% - var(--scan) * 100%) 0;
+  mix-blend-mode: screen;
+  opacity: calc(min(var(--scan) * 6, 1) * min((1 - var(--scan)) * 6, 1));
+}
 .scene-veil {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background:
@@ -894,8 +927,8 @@ html.is-scrub:not(.no-js) .scene-nav {
     background:
       linear-gradient(180deg, rgba(27, 20, 15, .9) 0%, rgba(27, 20, 15, .8) 36%, rgba(27, 20, 15, .22) 56%, rgba(27, 20, 15, .2) 72%, rgba(27, 20, 15, .8) 100%);
   }
-  .scene-beat:nth-child(4) .scene-bg,
-  .scene-beat:nth-child(5) .scene-bg { --focus: 60% 42%; }
+  .scene-beat:nth-child(4) :is(.scene-bg, .scene-depth),
+  .scene-beat:nth-child(5) :is(.scene-bg, .scene-depth) { --focus: 60% 42%; }
   .scene-copy h3 { font-size: clamp(2rem, 9vw, 2.6rem); max-width: 13ch; }
   .scene-strip { --pw: 29px; --gap: 4px; --open: 16px; }
   html.is-scrub:not(.no-js) .scene-copy {
